@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class WordController extends Controller
 {
-    public function index(){
-        $words = Word::all();
+    public function index(Request $request){
+        $words = Word::paginate($request->per_page);
         return $words;
     }
     public function create(Request $request){
