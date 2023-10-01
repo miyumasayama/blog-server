@@ -27,4 +27,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/', [WordController::class, 'create']);
     });
 });
-

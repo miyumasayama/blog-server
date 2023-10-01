@@ -18,7 +18,6 @@ class AuthController extends Controller
     {
         // ユーザーの作成とトークンの生成
         $user = User::create([
-            'name' => 'miyu',
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
