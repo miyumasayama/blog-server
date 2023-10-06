@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: blog
+  description: blog app
+  version: "1.0.0"
+paths:
+  # Words
+  "/api/words":
+    get:
+      tags:
+        - words
+      summary: Word一覧のAPIドキュメント
+      description: Word一覧取得のAPIドキュメント
+      parameters:
+
+      requestBody:
+        description: Word一覧取得時のリクエストボディ
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: ユーザー名（255文字まで）
+                  type: string
+                  example: 佐藤太郎
+                email:
+                  description: メールアドレス（一意、255文字まで）
+                  type: string
+                  example: hogehoge@gmail.com
+                password:
+                  description: パスワード（最小8文字）
+                  type: string
+                  example: password
+              required:
+                - name
+                - email
+                - password
+      responses:
+        "200":
+          description: ユーザー登録成功時
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    description: HTTPステータス
+                    type: string
+                    example: 200
+                  successMessage:
+                    description: ユーザー登録成功時のメッセージ
+                    type: string
+                    example: ユーザー登録に成功しました。
