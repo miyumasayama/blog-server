@@ -12,43 +12,99 @@ paths:
       summary: Word一覧のAPIドキュメント
       description: Word一覧取得のAPIドキュメント
       parameters:
-
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          description: オフセット
+          required: false
+          schema:
+            type: integer
+            default: 0
       requestBody:
-        description: Word一覧取得時のリクエストボディ
+        description: Words一覧取得時のリクエストボディ
         content:
           application/json:
             schema:
               type: object
               properties:
-                name:
-                  description: ユーザー名（255文字まで）
-                  type: string
-                  example: 佐藤太郎
-                email:
-                  description: メールアドレス（一意、255文字まで）
-                  type: string
-                  example: hogehoge@gmail.com
-                password:
-                  description: パスワード（最小8文字）
-                  type: string
-                  example: password
+                words:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        description: 単語のID
+                        type: integer
+                      title:
+                        description: 単語の名前
+                        type: string
+                      definition:
+                        description: 単語の定義
+                        type: string
               required:
-                - name
-                - email
-                - password
+                - words
       responses:
         "200":
-          description: ユーザー登録成功時
+          description: 単語一覧成功時
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   status:
-                    description: HTTPステータス
                     type: string
                     example: 200
                   successMessage:
-                    description: ユーザー登録成功時のメッセージ
                     type: string
-                    example: ユーザー登録に成功しました。
+                    example: 単語一覧取得に成功しました。
+    post:
+      tags:
+        - words
+      summary: Word作成のAPI
+      description: Word作成のAPIドキュメント
+      requestBody:
+        description: word作成のリクエストボディ
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  description: 単語の名前
+                  type: string
+                definition:
+                  description: 単語の意味
+                  type: string
+              required:
+                - title
+                - definition
+      responses:
+        "201":
+          description: 単語作成時
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 201
+                  successMessage:
+                    type: string
+                    example: 単語作成に成功しました
+                  title:
+                    description: 単語の名前
+                    type: string
+                  definition:
+                    description: 単語の意味
+                    type: string
+                required:
+                  - title
+                  - definition
