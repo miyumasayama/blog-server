@@ -26,43 +26,13 @@ paths:
           schema:
             type: integer
             default: 0
-      requestBody:
-        description: Words一覧取得時のリクエストボディ
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                words:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        description: 単語のID
-                        type: integer
-                      title:
-                        description: 単語の名前
-                        type: string
-                      definition:
-                        description: 単語の定義
-                        type: string
-              required:
-                - words
       responses:
         "200":
           description: 単語一覧成功時
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 200
-                  successMessage:
-                    type: string
-                    example: 単語一覧取得に成功しました。
+                $ref: '#/components/schemas/wordResponse"'
     post:
       tags:
         - words
@@ -74,37 +44,40 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  description: 単語の名前
-                  type: string
-                definition:
-                  description: 単語の意味
-                  type: string
-              required:
-                - title
-                - definition
+              $ref: "#/components/schemas/createWordRequestBody"
       responses:
         "201":
           description: 単語作成時
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 201
-                  successMessage:
-                    type: string
-                    example: 単語作成に成功しました
-                  title:
-                    description: 単語の名前
-                    type: string
-                  definition:
-                    description: 単語の意味
-                    type: string
-                required:
-                  - title
-                  - definition
+                $ref: "#/components/schemas/wordResponse"
+components:
+  schemas:
+    wordResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          description: 単語の名前
+          type: string
+        definition:
+          description: 単語の意味
+          type: string
+      required:
+        - id
+        - title
+        - definition
+    createWordRequestBody:
+      type: object
+      properties:
+        title:
+          description: 単語の名前
+          type: string
+        definition:
+          description: 単語の意味
+          type: string
+      required:
+        - title
+        - definition
