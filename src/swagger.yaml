@@ -4,6 +4,84 @@ info:
   description: blog app
   version: "1.0.0"
 paths:
+  # Auth
+  "/api/login":
+    post:
+      tags:
+        - auth
+      summary: login機能
+      description: loginのAPIドキュメント
+      requestBody:
+        description: loginのリクエストボディ
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authorizationRequestBody"
+      responses:
+        "200":
+          description: ログイン成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tokenResponse"
+        "422":
+          description: validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  "/api/logout":
+    delete:
+      tags:
+        - auth
+      summary: logout機能
+      description: logoutのAPIドキュメント
+      requestBody:
+        description: logoutのリクエストボディ
+        required: true
+        content:
+          application/json:
+            schema:
+              # TODO: リクエストボディについて考える
+              $ref: "#/components/schemas/logoutRequestBody"
+      responses:
+        "200":
+          description: "successful logout"
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  "/api/register":
+    post:
+      tags:
+        - user
+      summary: ユーザー登録
+      description: ユーザー登録のAPIドキュメント
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authorizationRequestBody"
+      responses:
+        "200":
+          description: "successful register"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tokenResponse"
+        "422":
+          description: validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
   # Words
   "/api/words":
     get:
@@ -69,6 +147,28 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
 components:
   schemas:
+    authorizationRequestBody:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    tokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+        - tolen
+    logoutRequestBody:
+      type: object
+      properties:
+        userId:
+          type: integer
     wordResponse:
       type: object
       properties:
