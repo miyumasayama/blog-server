@@ -36,6 +36,12 @@ paths:
                 items:
                   type: object
                   $ref: "#/components/schemas/wordResponse"
+        "422":
+          description: validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
     post:
       tags:
         - words
