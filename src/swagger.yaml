@@ -113,7 +113,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  $ref: "#/components/schemas/wordResponse"
+                  $ref: "#/components/schemas/word"
         "422":
           description: validation error
           content:
@@ -138,7 +138,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/wordResponse"
+                $ref: "#/components/schemas/word"
+        "422":
+          description: validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+    put:
+      tags:
+        - words
+      summary: Word編集のAPI
+      description: word編集のAPIドキュメント
+      requestBody:
+        description: word編集のリクエストボディ
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/word"
+      responses:
+        "201":
+          description: 単語修正時
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/word"
         "422":
           description: validation error
           content:
@@ -169,7 +194,7 @@ components:
       properties:
         userId:
           type: integer
-    wordResponse:
+    word:
       type: object
       properties:
         id:

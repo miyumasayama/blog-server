@@ -19,16 +19,26 @@ class WordController extends Controller
     }
 
     public function create(Request $request){
-        $student = new Word;
-        $student->title = $request->title;
-        $student->definition = $request->definition;
-        $student->save();
+        $word = new Word;
+        $word->title = $request->title;
+        $word->definition = $request->definition;
+        $word->save();
 
         return response()->json([
-            "message" => "word record created"
+            "word" => $word
         ], 201);
     }
 
+    public function edit(Request $request){
+        $word = Word::find($request->id);
+        if (!$word) {
+            return response()->json(['error' => 'Word not found'], 404);
+        }
+        $word = $request;
+        $word->save();
+
+        return response()->json(['word' => $word], 200);
+    }
 
 
 }
