@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "generate:types": "openapi-typescript /Users/masayama.miyu/myapp/blog-server/src/swagger.yaml --output src/types/api.ts"
     },
     "devDependencies": {
         "axios": "^1.1.2",
