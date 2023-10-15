@@ -16,3 +16,8 @@
 
 ## 認証
 - sanctumのToken認証を使用
+
+## openAPi
+- ローカル環境で作成
+  
+`npx openapi-typescript /Users/masayama.miyu/myapp/blog/blog-server/src/swagger.yaml --output src/types/api.ts `
