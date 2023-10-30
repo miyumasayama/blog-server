@@ -150,13 +150,20 @@ paths:
         - words
       summary: Word編集のAPI
       description: word編集のAPIドキュメント
+      parameters:
+        - name: id
+          description: id
+          in: path
+          required: true
+          schema:
+            type: integer
       requestBody:
         description: word編集のリクエストボディ
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/word"
+              $ref: "#/components/schemas/word/${id}"
       responses:
         "201":
           description: 単語修正時
