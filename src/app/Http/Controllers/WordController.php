@@ -34,11 +34,8 @@ class WordController extends Controller
         if (!$word) {
             return response()->json(['error' => 'Word not found'], 404);
         }
-        $word = $request;
-        $word->save();
+        $word->update($request->all());
 
         return response()->json(['word' => $word], 200);
     }
-
-
 }
