@@ -110,10 +110,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  $ref: "#/components/schemas/word"
+                $ref: "#/components/schemas/words"
         "422":
           description: validation error
           content:
@@ -145,6 +142,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HTTPValidationError"
+  "/api/words/{id}":
     put:
       tags:
         - words
@@ -163,7 +161,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/word/${id}"
+              $ref: "#/components/schemas/word"
       responses:
         "201":
           description: 単語修正時
@@ -216,6 +214,21 @@ components:
         - id
         - title
         - definition
+    words:
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            $ref: "#/components/schemas/word"
+        per_page:
+          type: integer
+        total:
+          type: integer
+        last_page:
+          type: integer
+      type: object
+      title: words
     createWordRequestBody:
       type: object
       properties:
