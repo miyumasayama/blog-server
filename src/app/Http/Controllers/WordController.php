@@ -29,16 +29,13 @@ class WordController extends Controller
         ], 201);
     }
 
-    public function edit(Request $request){
-        $word = Word::find($request->id);
+    public function edit(Request $request, $id){
+        $word = Word::find($id);
         if (!$word) {
             return response()->json(['error' => 'Word not found'], 404);
         }
-        $word = $request;
-        $word->save();
+        $word->update($request->all());
 
         return response()->json(['word' => $word], 200);
     }
-
-
 }

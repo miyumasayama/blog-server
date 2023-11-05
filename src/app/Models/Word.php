@@ -11,5 +11,5 @@ class Word extends Model
 
     protected $table = 'words';
 
-    protected $fillable = ['title', 'difinition'];
+    protected $fillable = ['title', 'definition'];
 }
